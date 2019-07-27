@@ -1,0 +1,6 @@
+create schema sentimentanalysisdb;
+use sentimentanalysisdb;
+create table user (email varchar(100) primary key, password text, addr text, role text, fname text, lname text, gender text, mobile text);
+
+create table twitterhandles(handle text, email varchar(100) references user(email), entry_time timestamp default '0000-00-00 00:00:00');
+create table twitterkeywords(keyword text, email varchar(100) references user(email), entry_time timestamp default '0000-00-00 00:00:00');
