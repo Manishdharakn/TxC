@@ -98,7 +98,9 @@ public class UserServlet extends HttpServlet
                dao.register(user);
                resp.sendRedirect("register.jsp?msg=Registration Successful");
             }
-         }
+          }
+	}
+       }
          else if (request_type.equals("login"))
          {
             String email = req.getParameter("email");
@@ -123,9 +125,9 @@ public class UserServlet extends HttpServlet
 
          else if (request_type.equals("updateprofile"))
          {
-            User user = new User();
+            User User = new User();
 
-            String addr = req.getParameter("addr");
+            String Addr = req.getParameter("addr");
             String email = req.getParameter("email");
             String fname = req.getParameter("fname");
             String lname = req.getParameter("lname");
@@ -134,13 +136,13 @@ public class UserServlet extends HttpServlet
             String role = req.getParameter("role");
             if (role == null || role.trim().length() == 0)
                role = "USER";
-            user.setAddr(addr);
-            user.setEmail(email);
-            user.setFname(fname);
-            user.setLname(lname);
-            user.setGender(gender);
-            user.setMobile(mobile);
-            user.setRole(role);
+            User.setAddr(addr);
+            User.setEmail(email);
+            User.setFname(fname);
+            User.setLname(lname);
+            User.setGender(gender);
+            User.setMobile(mobile);
+            User.setRole(role);
 
             if ((addr == null || addr.trim().length() == 0) || (email == null || email.trim().length() == 0)
                      || (fname == null || fname.trim().length() == 0)
@@ -206,6 +208,7 @@ public class UserServlet extends HttpServlet
             resp.sendRedirect("login.jsp?msg=Successfully Logged Out");
          }
       }
+     }
       catch (Exception e)
       {
          e.printStackTrace();
