@@ -17,6 +17,7 @@ public class TwitterKeywordServlet extends HttpServlet
 {
 
    private static final long serialVersionUID = 1L;
+   private static int count=1;
 
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -28,30 +29,43 @@ public class TwitterKeywordServlet extends HttpServlet
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
    {
       try
-      {
+      {	
          TwitterKeywordDAO tDao = new TwitterKeywordDAOImpl();
          User user = (User) req.getSession().getAttribute("user");
          String requestType = req.getParameter("requestType");
          if (requestType.equals("create"))
          {
+
+       	  if(count<=3)
+       	  {
             TwitterKeyword th = new TwitterKeyword();
             th.setUser(user.getEmail());
             th.setKeyword(req.getParameter("keyword"));
             th.setEntry_time(new Timestamp(System.currentTimeMillis()));
-
+           
             tDao.create(th);
             resp.sendRedirect("twitter_keyword_add.jsp?msg=Twitter keyword added successfully");
-
-         }
+            count++;
+         }  
+         else	
+    
+        	 resp.sendRedirect("twitter_keyword_add.jsp?msg=you have reached you maximum limit");
+      
+  	 
+         }      	
          else if (requestType.equals("get"))
          {
+        	
             req.setAttribute("keywords", tDao.getTwitterKeywordsByUser(user.getEmail()));
             req.getRequestDispatcher("twitter_keyword_get.jsp").forward(req, resp);
+
          }
          else if (requestType.equals("delete"))
          {
+        
             tDao.delete(req.getParameter("keyword"), user.getEmail());
             resp.sendRedirect("twitterkeyword?requestType=get&msg=Twitter Keyword " + req.getParameter("keyword") + " removed successfully");
+            count--;
          }
       }
       catch (Exception e)
@@ -60,5 +74,5 @@ public class TwitterKeywordServlet extends HttpServlet
          resp.sendRedirect("error.jsp?msg=Error: " + e.getMessage());
       }
    }
-
+   
 }

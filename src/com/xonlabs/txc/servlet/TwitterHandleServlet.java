@@ -17,7 +17,8 @@ public class TwitterHandleServlet extends HttpServlet
 {
 
    private static final long serialVersionUID = 1L;
-
+   private static int count=1;
+   
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
    {
@@ -34,14 +35,19 @@ public class TwitterHandleServlet extends HttpServlet
          String requestType = req.getParameter("requestType");
          if (requestType.equals("create"))
          {
-            TwitterHandle th = new TwitterHandle();
-            th.setUser(user.getEmail());
-            th.setHandle(req.getParameter("handle"));
-            th.setEntry_time(new Timestamp(System.currentTimeMillis()));
+        	 if(count<=3)
+        	 {
+        		 TwitterHandle th = new TwitterHandle();
+                 th.setUser(user.getEmail());
+                 th.setHandle(req.getParameter("handle"));
+                 th.setEntry_time(new Timestamp(System.currentTimeMillis()));
 
-            tDao.create(th);
-            resp.sendRedirect("twitter_handle_add.jsp?msg=Twitter handle added successfully");
-
+                 tDao.create(th);
+                 resp.sendRedirect("twitter_handle_add.jsp?msg=Twitter handle added successfully");
+        	     count++;
+        	 }           
+        	 else
+        		 resp.sendRedirect("twitter_handle_add.jsp?msg=you have reached you maximum input");
          }
          else if (requestType.equals("get"))
          {
@@ -52,6 +58,7 @@ public class TwitterHandleServlet extends HttpServlet
          {
             tDao.delete(req.getParameter("handle"), user.getEmail());
             resp.sendRedirect("twitterhandle?requestType=get&msg=Twitter handle " + req.getParameter("handle") + " removed successfully");
+            count--;
          }
       }
       catch (Exception e)
