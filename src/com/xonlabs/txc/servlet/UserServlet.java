@@ -1,4 +1,4 @@
-package com.xonlabs.txc.servlet;
+cpackage com.xonlabs.txc.servlet;
 
 import java.io.IOException;
 
@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.xonlabs.txc.dao.UserDAO;
 import com.xonlabs.txc.daoimpl.UserDAOImpl;
 import com.xonlabs.txc.pojo.User;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserServlet extends HttpServlet
 {
@@ -47,6 +50,8 @@ public class UserServlet extends HttpServlet
             User user = new User();
             String addr = req.getParameter("addr");
             user.setAddr(addr);
+         if (addr.length() < 20) {
+			  resp.sendRedirect("register.jsp?msg=Error! Minimum address length is 20 characters.");
             String email = req.getParameter("email");
             user.setEmail(email);
             String fname = req.getParameter("fname");
@@ -57,7 +62,19 @@ public class UserServlet extends HttpServlet
             user.setGender(gender);
             String mobile = req.getParameter("mobile");
             user.setMobile(mobile);
+          Pattern p = Pattern.compile("(\\+91\\-)[6-9][0-9]{9}");
+					Matcher m = p.matcher(mobile);
+					if (!(m.find() && m.group().equals(mobile))) {
+						resp.sendRedirect("register.jsp?msg=Error!Mobile Number Not in Required Format");
+					} else {
+             user.setMobile(mobile);
             String password = req.getParameter("password");
+            Pattern q = Pattern.compile("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})");
+						Matcher n = q.matcher(password);
+						if (!(n.find() && n.group().equals(password))) {
+							resp.sendRedirect(
+									"register.jsp?msg=Error!Password should contain one uppercase, one lowercase, one digit, one special character, and minimum 8 characters");
+						} else {
             user.setPassword(password);
             String role = req.getParameter("role");
             if (role == null || role.trim().length() == 0)
