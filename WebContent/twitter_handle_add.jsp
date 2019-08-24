@@ -229,11 +229,7 @@
 								}
 								else
 								{
-									
-								
 							%>
-		
-					
 							<form action='twitterhandle' method=post class='col-md-6'>
 								<input type=hidden name='requestType' value='create'/>
 								<label>Twitter Handle</label>

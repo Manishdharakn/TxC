@@ -14,7 +14,6 @@
 		response.sendRedirect("login.jsp?msg=Session expired. Login again");
 	} else {
 %>
-
 <html class="no-js" lang="">
 
 <head>

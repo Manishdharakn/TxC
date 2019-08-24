@@ -14,7 +14,6 @@
    else
    {
 %>
-
 <html class="no-js" lang="">
 
 <head>
