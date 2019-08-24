@@ -218,8 +218,8 @@
 							%>
 							<%
 								TwitterKeywordDAO tDAO2 = new TwitterKeywordDAOImpl();
-								List<TwitterKeyword> tweets2 = tDAO2.getTwitterKeywordsByUser(u1.getEmail());
-								if (tweets2 != null && tweets2.size()>=3 )
+								List<TwitterKeyword> tweets = tDAO2.getTwitterKeywordsByUser(u1.getEmail());
+								if (tweets != null && tweets.size()>=3 )
 								{
 									%>
 									<h2>
