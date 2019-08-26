@@ -1,11 +1,4 @@
 <!doctype html>
-<%@page import="com.xonlabs.txc.pojo.TwitterKeyword"%>
-<%@page import="com.xonlabs.txc.daoimpl.TwitterKeywordDAOImpl"%>
-<%@page import="com.xonlabs.txc.dao.TwitterKeywordDAO"%>
-<%@page import="com.xonlabs.txc.pojo.TwitterHandle"%>
-<%@page import="java.util.List"%>
-<%@page import="com.xonlabs.txc.daoimpl.TwitterHandleDAOImpl"%>
-<%@page import="com.xonlabs.txc.dao.TwitterHandleDAO"%>
 <%@page import="com.xonlabs.txc.util.Constants"%>
 <%@page import="com.xonlabs.txc.pojo.User"%>
 <%
@@ -14,6 +7,7 @@
 		response.sendRedirect("login.jsp?msg=Session expired. Login again");
 	} else {
 %>
+
 <html class="no-js" lang="">
 
 <head>
@@ -208,28 +202,8 @@
 							<%
 							   }
 							%>
-							<%
-								TwitterHandleDAO tDAO = new TwitterHandleDAOImpl();
-								List<TwitterHandle> tweets = tDAO.getTwitterHandlesByUser(u1.getEmail());
-								if ( tweets == null || tweets.size()==0)
-								{
-									%>
-									<h2>You haven't added any Twitter handle yet</h2>
-									<%
-								}
-							%>
-							<br>
-							<%
-								TwitterKeywordDAO tDAO2 = new TwitterKeywordDAOImpl();
-								List<TwitterKeyword> tweets2 = tDAO2.getTwitterKeywordsByUser(u1.getEmail());
-								if ( tweets2 == null || tweets2.size()==0)
-								{
-									%>
-									<h2>You haven't added any Twitter keyword yet</h2>
-									<%
-								}
-							%>
-							
+
+			
 
 
 						</div>

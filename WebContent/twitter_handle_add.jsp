@@ -1,8 +1,4 @@
 <!doctype html>
-<%@page import="com.xonlabs.txc.pojo.TwitterHandle"%>
-<%@page import="java.util.List"%>
-<%@page import="com.xonlabs.txc.daoimpl.TwitterHandleDAOImpl"%>
-<%@page import="com.xonlabs.txc.dao.TwitterHandleDAO"%>
 <%@page import="com.xonlabs.txc.util.Constants"%>
 <%@page import="com.xonlabs.txc.pojo.User"%>
 <%
@@ -215,32 +211,20 @@
 							<%
 							   }
 							%>
+
 							<br/>
-							<%
-								TwitterHandleDAO tDAO = new TwitterHandleDAOImpl();
-								List<TwitterHandle> tweets = tDAO.getTwitterHandlesByUser(u1.getEmail());
-								if (tweets != null && tweets.size()>=3 )
-								{
-									%>
-									<h2>
-										You have exceeded your quota. You can't add anymore handles. To add a new handle you have to delete any of the existing one.
-									</h2>				
-									<%
-								}
-								else
-								{
-							%>
+							
 							<form action='twitterhandle' method=post class='col-md-6'>
-								<input type=hidden name='requestType' value='create'/>
+								<input type=hidden name='requestType' value='create' />
 								<label>Twitter Handle</label>
 								<input type=text name='handle' placeholder="Ex: @ImVKohli" required="required" class='form-control' />
 								<br/>
 								<button class="btn btn-success" type="submit">Add</button>
 							</form>
+
 							<img src='images/handle.gif' width=200/>
-								
-								<%
-								}%>
+
+
 						</div>
 					</div>
 				</div>
