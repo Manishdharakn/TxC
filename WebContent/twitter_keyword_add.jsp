@@ -1,4 +1,8 @@
 <!doctype html>
+<%@page import="com.xonlabs.txc.pojo.TwitterKeyword"%>
+<%@page import="java.util.List"%>
+<%@page import="com.xonlabs.txc.daoimpl.TwitterKeywordDAOImpl"%>
+<%@page import="com.xonlabs.txc.dao.TwitterKeywordDAO"%>
 <%@page import="com.xonlabs.txc.util.Constants"%>
 <%@page import="com.xonlabs.txc.pojo.User"%>
 <%
@@ -10,7 +14,6 @@
    else
    {
 %>
-
 <html class="no-js" lang="">
 
 <head>
@@ -212,18 +215,32 @@
 							<%
 							   }
 							%>
-
-							<br/>
-							
+							<%
+								TwitterKeywordDAO tDAO2 = new TwitterKeywordDAOImpl();
+								List<TwitterKeyword> tweets = tDAO2.getTwitterKeywordsByUser(u1.getEmail());
+								if (tweets != null && tweets.size()>=3 )
+								{
+									%>
+									<h2>
+										You have exceeded your quota. You can't add anymore keyword. To add a new handle you have to delete any of the existing one.
+									</h2>				
+									<%
+								}
+								else
+								{
+								%>						
 							<form action='twitterkeyword' method=post class='col-md-6'>
 								<input type=hidden name='requestType' value='create' />
-								<label>Tweets Keyword</label>
+								<label>Tweets2 Keyword</label>
 								<input type=text name='keyword' placeholder="Ex: Cricket World Cup 2019" required="required" class='form-control' />
 								<br/>
 								<button class="btn btn-success" type="submit">Add</button>
 							</form>
 							
 							<img src='images/keyword.png' width=200/>
+							
+							<%
+								}%>
 
 						</div>
 					</div>
